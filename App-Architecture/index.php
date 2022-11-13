@@ -18,4 +18,5 @@ foreach ($routes as $pattern => $controllerAndAction) {
         exit;
     }
 }
-echo 'Page not found';
+http_response_code(404);
+echo '<h1>Страница не найдена</h1>';
