@@ -21,7 +21,20 @@ class ArticlesController
             $this->view->renderHtml('errors/404.php', [], 404);
             return;
         }
-        var_dump($article);
+        $article->setName($_POST['name']);
+        $article->setText($_POST['text']);
+
+        $article->save();
+    }
+
+    public function add(): void
+    {
+        $article = new Models\Article();
+        $article->setName($_POST['name']);
+        $article->setText($_POST['text']);
+        $article->setAuthorId($_POST['authorId']);
+
+        $article->save();
     }
 
     public function view(int $id): void

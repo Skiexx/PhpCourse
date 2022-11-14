@@ -6,11 +6,11 @@ class User extends ActiveRecordEntity
 {
     private string $nickname;
     private string $email;
-    private bool $isConfirmed;
+    protected bool $isConfirmed;
     private string $role;
-    private string $passwordHash;
-    private string $authToken;
-    private string $createAt;
+    protected string $passwordHash;
+    protected string $authToken;
+    protected string $createAt;
 
     public function getNickname(): string
     {

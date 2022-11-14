@@ -6,8 +6,8 @@ class Article extends ActiveRecordEntity
 {
     private string $name;
     private string $text;
-    private int $authorId;
-    private string $createdAt;
+    protected int $authorId;
+    protected string $createdAt;
 
     public function getId(): int
     {
@@ -19,14 +19,29 @@ class Article extends ActiveRecordEntity
         return $this->name;
     }
 
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function getText(): string
     {
         return $this->text;
     }
 
+    public function setText(string $text): void
+    {
+        $this->text = $text;
+    }
+
     public function getAuthor(): User
     {
         return User::getById($this->authorId);
+    }
+
+    public function setAuthorId(User $author): void
+    {
+        $this->authorId = $author->getId();
     }
 
     protected static function getTableName(): string
