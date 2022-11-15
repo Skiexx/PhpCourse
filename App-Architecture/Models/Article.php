@@ -4,10 +4,17 @@ namespace Models;
 
 class Article extends ActiveRecordEntity
 {
-    private string $name;
-    private string $text;
-    protected int $authorId;
-    protected string $createdAt;
+    /** @var string */
+    protected $name;
+
+    /** @var string */
+    protected $text;
+
+    /** @var int */
+    protected $authorId;
+
+    /** @var string */
+    protected $createdAt;
 
     public function getId(): int
     {

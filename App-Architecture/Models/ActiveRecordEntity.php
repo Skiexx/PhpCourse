@@ -5,7 +5,8 @@ use Services\Db;
 
 abstract class ActiveRecordEntity
 {
-    protected int $id;
+    /** @var int */
+    protected $id;
 
     public function getId(): int
     {
@@ -80,6 +81,16 @@ abstract class ActiveRecordEntity
         $sql = 'UPDATE ' . static::getTableName() . ' SET ' . implode(', ', $columns) . ' WHERE id=:id';
         $db = Db::getInstance();
         $db->execQuery($sql, $values);
+    }
+
+    public function delete(): void
+    {
+        $db = Db::getInstance();
+        $db->execQuery(
+            'DELETE FROM ' . static::getTableName() . ' WHERE id = :id',
+            [':id' => $this->id]
+        );
+        $this->id = null;
     }
 
     /**
