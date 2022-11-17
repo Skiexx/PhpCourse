@@ -8,7 +8,8 @@ return [
     '~^users/register$~' => [\Controllers\UsersController::class, 'signUp'],
     '~^users/login$~' => [\Controllers\UsersController::class, 'signIn'],
     '~^users/logout$~' => [\Controllers\UsersController::class, 'signOut'],
-    '~^comments/(\d+)/add$~' => [\Controllers\CommentsController::class, 'add'],
-    '~^comments/(\d+)/edit$~' => [\Controllers\CommentsController::class, 'edit'],
+    '~^articles/(\d+)/comment$~' => [\Controllers\ArticlesController::class, 'addComment'],
+    '~^comments/(\d+)/edit$~' => [\Controllers\ArticlesController::class, 'editComment'],
+    '~^comments/(\d+)/delete$~' => [\Controllers\ArticlesController::class, 'deleteComment'],
     '~^$~' => [\Controllers\MainController::class, 'main'],
 ];

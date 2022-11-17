@@ -20,11 +20,19 @@ class Comment extends ActiveRecordEntity
     /**
      * @throws InvalidArgumentsException
      */
-    public static function createFromArray(array $fields, User $author, int $article): self
+    public static function createFromArray(array $fields, User $author, int $articleId): self
     {
         if (empty($fields['text'])) {
             throw new InvalidArgumentsException('Не передан текст комментария');
         }
+
+        $comment = new self();
+        $comment->authorId = $author->getId();
+        $comment->articleId = $articleId;
+        $comment->text = $fields['text'];
+        $comment->save();
+
+        return $comment->getLatest();
     }
 
     public function getAuthor(): User
@@ -56,5 +64,18 @@ class Comment extends ActiveRecordEntity
             $comments[] = $comment;
         }
         return $comments ?? null;
+    }
+
+    /**
+     * @throws InvalidArgumentsException
+     */
+    public function updateFromArray(array $fields): self
+    {
+        if (empty($fields['text'])) {
+            throw new InvalidArgumentsException('Не передан текст комментария');
+        }
+        $this->text = $fields['text'];
+        $this->save();
+        return $this;
     }
 }

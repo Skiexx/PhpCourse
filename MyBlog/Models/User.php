@@ -25,7 +25,7 @@ class User extends ActiveRecordEntity
     protected $authToken;
 
     /** @var string */
-    protected $createAt;
+    protected $createdAt;
 
     public function getNickname(): string
     {
@@ -122,7 +122,7 @@ class User extends ActiveRecordEntity
     /**
      * @throws InvalidArgumentsException
      */
-    public static function signIn(array $userData): ?User
+    public static function signIn(array $userData): User
     {
         $error = '';
 
@@ -161,15 +161,16 @@ class User extends ActiveRecordEntity
 
         if (empty($user))
         {
-            throw new \Exceptions\InvalidArgumentsException('Неверный "Nickname" или пароль');
+            throw new \Exceptions\InvalidArgumentsException('Пользователь не найден');
         }
 
         if ($user instanceof User && password_verify($userData['password'], $user->passwordHash)) {
             $user->refreshAuthToken();
             $user->save();
             return $user;
+        } else {
+            throw new \Exceptions\InvalidArgumentsException('Неверный пароль');
         }
-        return null;
     }
 
     private function refreshAuthToken()
